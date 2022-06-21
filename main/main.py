@@ -8,8 +8,8 @@ def process_text(text):
         "data": text,
         "addmorph": True,
         "matchpartial": True,
-        "keepmetagim": True,
-        "keepqq": True,
+        "keepmetagim": False,
+        "keepqq": False,
     }
     r = requests.post("https://nakdan-4-0.loadbalancer.dicta.org.il/addnikud", headers=headers, json=params)
     r.encoding = "UTF-8"
@@ -18,23 +18,35 @@ def process_text(text):
     ds = []
     for item in x:
         y = {}
-    #     if item['sep'] == False :
-    #         ds.append(item['word'])
-        # if (('word' in item) and item['sep'] == False) or (
-        #         ('word' in item) and item['word'] == '!' and item['sep'] == True):
-        #     y['word'] = item['word']
-        #     if item['word'] == '!':
-        #         y['morph'] = '0x{0:0{1}X}'.format(int(0), 16)
-        # for inner in item['options']:
-        #     y['morph'] = '0x{0:0{1}X}'.format(int(inner['morph']), 16)
-        # if len(y) > 0:
-        #     ds.append(y)
+        if ('word' in item) and item['sep'] is False:
+            y['word'] = item['word']
+        for inner in item['options']:
+            y['morph'] = '0x{0:0{1}X}'.format(int(inner['morph']), 16)
+        if len(y) > 0:
+            ds.append(y)
 
-    # return ds
+    return ds
+
+def isFemale(item):
+    return item['morph'][12] == '4' or item['morph'][12] == '5'
+
+
+def isAdj(item):
+    return item['morph'][13] == '1'
+
+def filterWords(items):
+    out = []
+    for i in range(len(items) - 1):
+        if isAdj(items[i]) and isFemale(items[i]):
+            out.append(items[i]['word'])
+    return out
+
+# def speakingAboutNoun(items,i):
+#     for
 
 def main() :
-    print(0x0000000000200000)
-    print(process_text("אהלן, מה נשמע? מה שלומך, איך את?"))
+    proc = process_text("היא יפה מאוד ונמוכה אבל היא רוצה ללכת לים עם המזוודה הקטנה היפה שלה")
+    print(filterWords(proc))
 
 if __name__ == '__main__':
     main()

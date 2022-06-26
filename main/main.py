@@ -3,6 +3,7 @@ import process_text
 
 
 def main():
+    # print(process_text.process_text(" סירה חדשה "))
     songs_lyrics = extract_data.parsing.songs_lyrics
     filtered_songs = []
     for song in songs_lyrics:

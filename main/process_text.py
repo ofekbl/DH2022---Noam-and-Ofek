@@ -44,14 +44,14 @@ def is_talking_about_noun(items, start, end):
 
 
 def filter_words(items):
-    out = []
-    for i in range(len(items) - 1):
+    out = set()
+    for i in range(len(items)):
         j = i
         # checking if the adjective is talking about female or noun
         if j <= 3:
             j = 0
         else:
             j = j - 3
-        if is_adj(items[i]) and is_female(items[i]) and (not is_talking_about_noun(items, j, i-1)):
-            out.append(items[i]['word'])
+        if is_adj(items[i]) and is_female(items[i]) and (not is_talking_about_noun(items, j, i)):
+            out.add(items[i]['word'])
     return out

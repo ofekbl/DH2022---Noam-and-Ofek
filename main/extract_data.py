@@ -19,6 +19,11 @@ class Parsing:
                     tree = ET.parse(f)
                     root = tree.getroot()
                     lgs = root[1][0][0]
+                    titles = root[0][0][0][0]
+                    titless = titles.text.split('\n')
+                    with codecs.open("../words_to_tag2.txt", "a", "utf8") as words_to_tag:
+                        words_to_tag.write(titless[0] + "\n")
+                    # print(titless[0])
                     for lg in lgs:
                         for l in lg:
                             words = l.text.split(' ')
@@ -32,9 +37,9 @@ class Parsing:
 def is_hebrew_song(words):
     for word in words:
         if re.search('[a-zA-Z]', word) == None:  # we want only the Hebrew words
+            with codecs.open("../words_to_tag.txt", "a", "utf8") as words_to_tag:
+                words_to_tag.write(word + "\n")
             return True
-        with codecs.open("../data/words_to_tag.txt", "a", "utf8") as words_to_tag:
-            words_to_tag.write(word + "\n")
     return False
 parsing = Parsing()
 parsing.all_words_appear()

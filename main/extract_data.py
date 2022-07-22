@@ -13,6 +13,7 @@ class Parsing:
     def all_words_appear(self):
         filenames = glob.glob("../Lyrics/*/*.xml")
         i = 0
+
         for filename in filenames:
             i = i + 1
             lyrics = []
@@ -20,7 +21,6 @@ class Parsing:
             try:
                 with codecs.open(filename, "r", "utf8") as f:
                     tree = ET.parse(f)
-                    # print(tree)
                     root = tree.getroot()
 
                     lgs = root[1][0][0]

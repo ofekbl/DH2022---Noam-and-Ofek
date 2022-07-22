@@ -6,7 +6,8 @@ import extract_from_shironet
 
 
 def main():
-    extract_from_shironet.extract()
+    print(extract_from_shironet.extract())
+
     # songs_lyrics = extract_data.parsing.songs_lyrics
     # i = 0
     # total = 0
@@ -45,7 +46,7 @@ def main():
     #                     with codecs.open("../words of 2010.txt", "a", "utf8") as words_of_2010:
     #                         words_of_2010.write(word+"\n")
     # print("im done")
-
+#
 
 if __name__ == '__main__':
     main()

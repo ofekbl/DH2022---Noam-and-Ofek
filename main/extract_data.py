@@ -20,7 +20,9 @@ class Parsing:
             try:
                 with codecs.open(filename, "r", "utf8") as f:
                     tree = ET.parse(f)
+                    # print(tree)
                     root = tree.getroot()
+
                     lgs = root[1][0][0]
                     titles = root[0][0][0][0]
                     titles = titles.text.split('\n')

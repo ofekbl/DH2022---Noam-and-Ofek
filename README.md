@@ -31,6 +31,10 @@ Another way we would like to display our results would be a word cloud that show
 In addition, another goal is to explain the results in our words, and to compare the result to our previous assumption, i.e, is the use in offensive, objectyfing expressions regarding women has decreased through out the years. 
 
 5. Our conclusion - 
+After trying to use the Lyrics.co.il local DB, we understood that the songs there are not enough, so we wrote an API to use the "shironet" website and scrape the lyrics of the songs from their website. 
+There is a trade off between these two solutions, since using the API we wrote will decrease the run time since there are many requests to the "Shironet" server, and also, a network connection is needed. On the other hand, for our research we had to use a large DB to have accurate, reliable results, so we decided to go with the Shironet API we wrote. We decied to keep both solutions in our code, so that a user can decide which solition fits better to his/hers needs. 
+
+By using the API we wrote we concluded few things: 
 
 
 

@@ -3,32 +3,32 @@ from bs4 import BeautifulSoup
 
 
 def extract():
-    # get_album_page("https://shironet.mako.co.il/artist?lang=1&prfid=1021")
-    url = 'https://shironet.mako.co.il/html/indexes/performers/'
-    r = requests.get(url, allow_redirects=True)
-    open('shironet', 'wb').write(r.content)
-    root = bytes.decode(r.content)[152:].split('\n')
     output = []
-    i = 0
-    for t in root:
-        if 'artist?lang=' in t and i < 4:
-            i = i + 1
-            print(i)
-            start = t.find('href') + 6
-            end = t.find('title=') - 2
-            url = 'https://shironet.mako.co.il' + t[start:end]
-            output.append(get_album_page(url))
+    for j in range(20, 21):
+        url = 'https://shironet.mako.co.il/html/indexes/performers/heb_'+str(j)+'_popular.html'
+        r = requests.get(url, allow_redirects=True)
+        open('shironet', 'wb').write(r.content)
+        root = bytes.decode(r.content)[152:].split('\n')
+    # running on each singer
+        for t in root:
+            if 'artist?lang=' in t:
+                start = t.find('href') + 6
+                end = t.find('title=') - 2
+                url = 'https://shironet.mako.co.il' + t[start:end]
+                albums = get_album_page(url)
+                for album in albums:
+                    output.append(album)
     return output
 
 
 def get_album_page(url):
-    # get_song_page("https://shironet.mako.co.il/artist?type=disc&lang=1&prfid=1021&discid=412")
-    songs_lyrics = []
+    songs = []
     r = requests.get(url, allow_redirects=True)
     open('shironet', 'wb').write(r.content)
     root = bytes.decode(r.content).split('\n')
     album_name = ""
     singer_name = ""
+    # running on each album
     for t in root:
         if 'img align="left" src="' in t:
             start = t.find("title") + 7
@@ -37,28 +37,27 @@ def get_album_page(url):
             if is_hebrew(name):
                 singer_name = name[:name.find('-')]
                 album_name = name[name.find('-') + 1:]
-                print("singer = " + singer_name)
-                print("album name = " + album_name)
         if 'https://shironet.mako.co.il/artist?type=disc' in t:
             start = t.find("content") + 9
             end = t.find(' />') - 1
-            songs_lyrics.append([album_name, singer_name, get_song_page(t[start:end])])
-    return songs_lyrics
+            songs_lyrics = get_song_page(singer_name, album_name, t[start:end])
+            for song in songs_lyrics:
+                songs.append(song)
+    return songs
 
 
-def get_song_page(url):
-    # get_lyrics("https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=4558&wrkid=23593")
+def get_song_page(singer, album, url):
     songs_lyrics = []
     r = requests.get(url, allow_redirects=True)
     open('shironet', 'wb').write(r.content)
     root = bytes.decode(r.content).split('\n')
+    # runnig on each song in the same album
     for t in root:
         if 'a class="artist_normal_link_clean" href="/artist?type=lyrics' in t:
             start = t.find('href') + 6
             end = t.find('>') - 1
             url = "https://shironet.mako.co.il" + t[start:end]
-            print(url)
-            songs_lyrics.append(get_lyrics(url))
+            songs_lyrics.append([singer, album, get_lyrics(url)])
     return songs_lyrics
 
 
@@ -69,8 +68,8 @@ def get_lyrics(url):
     output = ""
     try:
         for t in test.contents[0::2]:
-            output = output + t.text + "\n"
-        return output
+            output = output + t.text + " "
+        return output.replace('\r', ' ')
     except:
         return ""
 

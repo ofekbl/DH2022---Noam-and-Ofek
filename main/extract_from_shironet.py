@@ -5,7 +5,7 @@ import codecs
 
 def extract():
     output = []
-    for j in range(1, 22):
+    for j in range(0, 22):
         url = 'https://shironet.mako.co.il/html/indexes/performers/heb_'+str(j)+'_popular.html'
         r = requests.get(url, allow_redirects=True)
         open('shironet', 'wb').write(r.content)
@@ -48,7 +48,6 @@ def get_album_page(url):
 
 
 def get_song_page(singer, album, url):
-    print(singer)
     songs_lyrics = []
     r = requests.get(url, allow_redirects=True)
     open('shironet', 'wb').write(r.content)

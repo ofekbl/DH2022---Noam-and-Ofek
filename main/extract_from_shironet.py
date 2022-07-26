@@ -1,10 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
+import codecs
 
 
 def extract():
     output = []
-    for j in range(20, 21):
+    for j in range(1, 22):
         url = 'https://shironet.mako.co.il/html/indexes/performers/heb_'+str(j)+'_popular.html'
         r = requests.get(url, allow_redirects=True)
         open('shironet', 'wb').write(r.content)
@@ -47,10 +48,13 @@ def get_album_page(url):
 
 
 def get_song_page(singer, album, url):
+    print(singer)
     songs_lyrics = []
     r = requests.get(url, allow_redirects=True)
     open('shironet', 'wb').write(r.content)
     root = bytes.decode(r.content).split('\n')
+    with codecs.open("../songs links.txt", "a", "utf8") as sn:
+        sn.write(url + " - " + album + "," + singer + "\n")
     # runnig on each song in the same album
     for t in root:
         if 'a class="artist_normal_link_clean" href="/artist?type=lyrics' in t:

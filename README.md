@@ -34,9 +34,10 @@ In addition, another goal is to explain the results in our words, and to compare
 After trying to use the Lyrics.co.il local DB, we understood that the songs there are not enough, so we wrote an API to use the "shironet" website and scrape the lyrics of the songs from their website. 
 There is a trade off between these two solutions, since using the API we wrote will decrease the run time since there are many requests to the "Shironet" server, and also, a network connection is needed. On the other hand, for our research we had to use a large DB to have accurate, reliable results, so we decided to go with the Shironet API we wrote. We decied to keep both solutions in our code, so that a user can decide which solition fits better to his/hers needs. 
 
-By using the API we wrote we concluded few things: 
-
-
+To sum up - We learned a lot from our project. Not only technical skills which will be in use in the future, but also we experienced a real research from it's beginning until the end. We had an interseting topic that combined our love to music and also a personal connection to Hebrew language with our technical skills that we gained through our degree these last few years. 
+We experienced with HTML, API's and libraries from Python, which were very new to us, we got to write an API (!), and also learned about the Hebrew language, Israeli music, and the changes that the last generation is bringing with it, through music. We used skills from the erliear lessons with Yael - used "חצי מובנה" data, and also "מובנה" data, also experienced "עיבוד שפה טבעית", which is literly the combination between the computers world, and human language thriugh the Dicta tool.
+We are grateful for this project and the experience it brought to us, very interesing and teaching. 
+Thank you Yael! 
 
 7. Bibiliography - 
 * https://spotipy.readthedocs.io/en/2.19.0/
@@ -44,4 +45,6 @@ By using the API we wrote we concluded few things:
 * Lyrics.co.il DB that Yael sent us
 * Wix.com for the website - https://ofek031096.wixsite.com/website
 * https://voyant-tools.org/
+*canva graphs
 
+*A link to our website - https://ofek031096.wixsite.com/website
